@@ -1,0 +1,16 @@
+{
+  "name": "cypress-docker-vnc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Matthew Edell",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "setup": "yarn install --frozen-lockfile --non-interactive && setup:vnc",
+    "setup:vnc": "chmod 700 ./setup-vnc.sh && ./setup-vnc.sh &",
+    "cypress:open": "echo $DISPLAY && yarn cypress open --browser chrome"
+  },
+  "devDependencies": {
+    "cypress": "6.4.0"
+  }
+}

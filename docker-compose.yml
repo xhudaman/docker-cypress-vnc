@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  cypress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /src
+    entrypoint: /bin/bash -c "yarn setup:vnc && yarn cypress:open"
+    environment:
+      DISPLAY: :20
+    ports:
+      - 5920:5920
+    volumes:
+      - ./cypress-testing:/src
+    ipc: host
+    network_mode: host
+    depends_on:
+      - api
+      - web
+
+  api:
+    image: node:16
+    working_dir: /src
+    command: yarn start
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api:/src
+    network_mode: host
+
+  web:
+    image: node:16
+    working_dir: /src
+    command: yarn start
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+      PORT: 8080
+    ports:
+      - 8080:8080
+    volumes:
+      - ./web:/src
+    network_mode: host
+    depends_on:
+      - api
