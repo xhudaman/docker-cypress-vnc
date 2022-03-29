@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://localhost:8080/",
+  "baseUrl": "http://web:8080/",
   "env": {
-    "apiUrl": "http://localhost:3000"
+    "apiUrl": "http://api:3000"
   },
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 30000,

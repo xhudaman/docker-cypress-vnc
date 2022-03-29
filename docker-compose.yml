@@ -13,10 +13,11 @@ services:
     volumes:
       - ./cypress-testing:/src
     ipc: host
-    network_mode: host
     depends_on:
       - api
       - web
+    networks:
+      - cypress
 
   api:
     image: node:16
@@ -26,19 +27,24 @@ services:
       - 3000:3000
     volumes:
       - ./api:/src
-    network_mode: host
+    networks:
+      - cypress
 
   web:
     image: node:16
     working_dir: /src
     command: yarn start
     environment:
-      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_API_URL: http://api:3000
       PORT: 8080
     ports:
       - 8080:8080
     volumes:
       - ./web:/src
-    network_mode: host
     depends_on:
       - api
+    networks:
+      - cypress
+
+networks:
+  cypress:
