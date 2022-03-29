@@ -8,7 +8,8 @@
   "scripts": {
     "setup": "yarn install --frozen-lockfile --non-interactive && setup:vnc",
     "setup:vnc": "chmod 700 ./setup-vnc.sh && ./setup-vnc.sh &",
-    "cypress:open": "echo $DISPLAY && yarn cypress open --browser chrome"
+    "cypress:open": "echo $DISPLAY && yarn cypress open --browser chrome",
+    "cypress:run": "yarn setup:vnc && yarn cypress run --headless --browser chrome"
   },
   "devDependencies": {
     "cypress": "6.4.0"
